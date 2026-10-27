@@ -1,0 +1,25 @@
+
+name: E-commerce CI Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Check website file
+        run: test -s index.html
+
+      - name: Validate website content
+        run: |
+          grep -q "ShopEase" index.html
+          echo "E-commerce website validation successful!"
